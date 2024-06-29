@@ -1,0 +1,369 @@
+/* Container utama */
+.home-container .container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #1e1e1e; /* Warna latar belakang gelap */
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  color: #fff; /* Warna teks putih */
+}
+
+.profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Tambahkan align-items untuk memastikan elemen sejajar secara vertikal */
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.username {
+  font-size: 1.5em;
+  color: #fff; /* Pastikan teks berwarna putih agar terlihat di latar belakang gelap */
+}
+
+/* .logout-button {
+  background-color: #b5651d;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px; /* Tambahkan border-radius untuk sudut yang lebih halus */
+/* } */ */
+
+/* Bagian kiri */
+.home-container .left-panel {
+  width: 30%;
+  padding: 20px;
+  border-right: 1px solid #333; /* Warna border lebih gelap */
+}
+
+.home-container .left-panel h2 {
+  font-size: 24px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.home-container .left-panel p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.home-container .left-panel select,
+.home-container .left-panel input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #333; /* Warna border lebih gelap */
+  border-radius: 5px;
+  background-color: #2e2e2e; /* Warna latar belakang input */
+  color: #fff; /* Warna teks input */
+}
+
+.home-container .left-panel button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ffb300; /* Warna tombol */
+  color: #1e1e1e; /* Warna teks tombol */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Bagian kanan */
+.home-container .right-panel {
+  width: 65%;
+  padding: 20px;
+}
+
+.home-container .right-panel h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.home-container .calendar {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-container .calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.arrow {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: 0.5s;
+  overflow: hidden;
+}
+
+.arrow:hover {
+  border: solid 2px white;
+  border-radius: 50%;
+}
+
+.arrow:after {
+  position: absolute;
+  display: block;
+  content: "";
+  color: white;
+  width: 20px;
+  height: 15px;
+  top: -1px;
+  border-bottom: solid 2px;
+  transform: translatex(4px);
+}
+
+.arrow:before {
+  position: absolute;
+  display: block;
+  content: "";
+  color: white;
+  width: 8px;
+  height: 8px;
+  border-top: solid 2px;
+  border-left: solid 2px;
+  top: 50%;
+  left: 2px;
+  transform-origin: 0% 0%;
+  transform: rotatez(-45deg);
+}
+
+.arrow:hover:before {
+  animation: aniArrow01 1s cubic-bezier(0, 0.6, 1, 0.4) infinite 0.5s;
+}
+
+.arrow:hover:after {
+  animation: aniArrow02 1s cubic-bezier(0, 0.6, 1, 0.4) infinite 0.5s;
+}
+
+@keyframes aniArrow01 {
+  0% {
+    transform: rotatez(-45deg) translateY(30px) translateX(30px);
+  }
+  100% {
+    transform: rotatez(-45deg) translateY(-35px) translateX(-35px);
+  }
+}
+
+@keyframes aniArrow02 {
+  0% {
+    transform: translateX(45px);
+  }
+  100% {
+    transform: translateX(-44px);
+  }
+}
+
+.home-container .calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.home-container .calendar-grid .day-header {
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  background-color: #333; /* Warna latar belakang header hari */
+  color: #fff; /* Warna teks header hari */
+}
+
+.home-container .calendar-grid .day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #2e2e2e; /* Warna latar belakang grid */
+  color: #fff; /* Warna teks grid */
+}
+
+.home-container .calendar-grid .today {
+  background-color: #ffb300; /* Warna latar belakang hari ini */
+  color: #1e1e1e; /* Warna teks hari ini */
+}
+
+.home-container .calendar-grid .selected {
+  background-color: #333; /* Warna latar belakang terpilih */
+}
+
+.home-container .left-panel .button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Jarak antara tombol */
+}
+
+.home-container .left-panel .button-group button {
+  flex: 1; /* Membuat tombol memiliki lebar yang sama */
+}
+
+/* Gaya untuk waktu */
+.home-container .time-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.home-container .time-slots button {
+  padding: 10px;
+  background-color: #ffb300; /* Warna tombol waktu */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #1e1e1e; /* Warna teks tombol waktu */
+}
+
+.home-container .time-slots button.selected {
+  background-color: #6200ea; /* Warna tombol waktu terpilih */
+  color: #fff; /* Warna teks tombol waktu terpilih */
+}
+
+.addbutton {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background: #183153;
+  font-family: "Montserrat", sans-serif;
+  box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+}
+
+.addbutton:after {
+  content: " ";
+  width: 0%;
+  height: 100%;
+  background: #ffb300;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  right: 0;
+}
+
+.addbutton:hover::after {
+  right: auto;
+  left: 0;
+  width: 100%;
+}
+
+.addbutton span {
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  padding: 18px 25px;
+  color: #fff;
+  font-size: 1.125em;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  z-index: 20;
+  transition: all 0.3s ease-in-out;
+}
+
+.addbutton:hover span {
+  color: #183153;
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+.logout-button {
+  --black: #000000;
+  --ch-black: #141414;
+  --eer-black: #1b1b1b;
+  --night-rider: #2e2e2e;
+  --white: #ffffff;
+  --af-white: #f3f3f3;
+  --ch-white: #e1e1e1;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Ubah justify-content menjadi center */
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 10px; /* Sesuaikan border-radius */
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: .3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: var(--af-white);
+  color: var(--night-rider); /* Tambahkan warna teks */
+}
+
+/* plus sign */
+.sign {
+  width: 100%;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign svg {
+  width: 17px;
+}
+
+.sign svg path {
+  fill: var(--night-rider);
+}
+
+/* text */
+.text {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: var(--night-rider);
+  font-size: 1.2em;
+  font-weight: 600;
+  transition-duration: .3s;
+}
+
+/* hover effect on button width */
+.logout-button:hover {
+  width: 125px;
+  border-radius: 5px;
+  transition-duration: .3s;
+}
+
+.logout-button:hover .sign {
+  width: 30%;
+  transition-duration: .3s;
+  padding-left: 20px;
+}
+
+/* hover effect button's text */
+.logout-button:hover .text {
+  opacity: 1;
+  width: 70%;
+  transition-duration: .3s;
+  padding-right: 10px;
+}
+
+/* button click effect */
+.logout-button:active {
+  transform: translate(2px ,2px);
+}

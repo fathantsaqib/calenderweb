@@ -1,0 +1,70 @@
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.frame-parent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.frame {
+  margin-bottom: 20px;
+}
+
+.login-page {
+  width: 100%;
+  height: auto;
+}
+
+.auto-layout-vertical {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #a58b6f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.auto-layout-vertical:hover {
+  background-color: #a58b6f;
+}
+
+.auto-layout-vertical1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.by-signing-in {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+}
+
+.legal-terms-and-privacy-policy-wrapper {
+  margin-top: 10px;
+}
+
+.legal-terms-and {
+  font-size: 14px;
+  color: #d4af37;
+  text-align: center;
+  cursor: pointer;
+}
+
+.legal-terms-and:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,112 @@
+CSS untuk Login Form
+
+body {
+    background-color: #1a1a1a;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 50px;
+  }
+  
+  .logo img {
+    width: 300px;
+    height: auto;
+  }
+  
+  .form-container {
+    width: 400px;
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .form-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #a58b6f;
+  }
+  
+  .form-container form div {
+    margin-bottom: 15px;
+  }
+  
+  .form-container form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-group input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #1c1c1c;
+    color: #fff;
+  }
+  
+  /* .form-container form input[type="email"],
+.form-container form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3a3a3a;
+    color: #fff;
+    box-sizing: border-box; 
+    margin-bottom: 10px; 
+} */
+  
+  .form-container form input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .form-container form button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #a58b6f;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .form-container form button:hover {
+    background-color: #8b6f5a;
+  }
+  
+  .form-container .form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .form-container .form-footer a {
+    color: #a58b6f;
+    text-decoration: none;
+  }
+  
+  .form-container .form-footer a:hover {
+    text-decoration: underline;
+  }
