@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from "react"; // Tambahkan useContext
+import React, { useState, useEffect } from "react"; // Tambahkan useContext
 import { useNavigate } from "react-router-dom";
-import { EventContext } from "../context/EventContext"; // Tambahkan import EventContext
-import { createNote } from '../services/Api'; // Tambahkan import createNote
-import axios from "axios";
+// import { EventContext } from "../context/EventContext"; // Tambahkan import EventContext
+import { createNote, getEvents } from "../services/Api"; // Tambahkan import createNote
 import "./home.css";
 
 const Home = () => {
@@ -13,8 +12,10 @@ const Home = () => {
   const [username, setUsername] = useState(""); // Tambahkan state untuk menyimpan nama pengguna
   const [note, setNote] = useState("");
   const [userId, setUserId] = useState(null);
+  const [eventsList, setEventsList] = useState([]);
+  const [eventsSelected, setEventsSelected] = useState(null);
   const navigate = useNavigate();
-  const { events } = useContext(EventContext); // Gunakan useContext untuk mendapatkan events
+  // const { events } = useContext(EventContext); // Gunakan useContext untuk mendapatkan events
 
   const handleNoteChange = (e) => {
     setNote(e.target.value);
@@ -27,7 +28,7 @@ const Home = () => {
         catatan: note, // Sesuaikan nama properti menjadi catatan
       });
       if (response) {
-        setNote(''); // Kosongkan inputan setelah catatan berhasil dikirim
+        setNote(""); // Kosongkan inputan setelah catatan berhasil dikirim
         console.log("Catatan berhasil dikirim");
       }
     } catch (error) {
@@ -40,23 +41,31 @@ const Home = () => {
   }, [currentMonth, currentYear]);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user && user.user_id) {
-      setUsername(user.nama || "");
-      setUserId(user.user_id);
-      console.log("User ID:", user.user_id); // Log the user_id
-    } else {
+    try {
+      getEvents().then((value) => {
+        console.log(value);
+        setEventsList(value);
+      });
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user && user.user_id) {
+        setUsername(user.nama || "");
+        setUserId(user.user_id);
+      } else {
+        setUsername("");
+        setUserId(null);
+      }
+    } catch (error) {
+      console.error("Failed to parse user data:", error);
       setUsername("");
       setUserId(null);
     }
   }, []);
 
-
   const renderCalendar = (month, year) => {
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const calendarDays = [];
-
+    
     for (let i = 0; i < firstDay; i++) {
       calendarDays.push("");
     }
@@ -101,31 +110,63 @@ const Home = () => {
   const handleDateClick = (day) => {
     if (day) {
       setSelectedDate(new Date(currentYear, currentMonth, day));
+      // console.log(Date(currentYear, currentMonth, day))
     }
   };
+  useEffect(() => {
+    if (selectedDate == null ) return;
+    // eventsList.forEach((event) => {console.log(event.tanggal)});
 
-  const isEventOnSelectedDate = (event) => {
-    if (!selectedDate) return false;
-    const eventDate = new Date(event.tanggal);
-    return (
-      eventDate.getDate() === selectedDate.getDate() &&
-      eventDate.getMonth() === selectedDate.getMonth() &&
-      eventDate.getFullYear() === selectedDate.getFullYear()
-    );
-  };
+    // setEventsSelected(
+    //   eventsList.find(
+    //     (event) =>
+    //       event.user_id.toString() ===
+    //         localStorage.getItem("user_id").toString() &&
+    //       new Date(event.tanggal).getDate() === selectedDate.getDate() &&
+    //       new Date(event.tanggal).getMonth() === selectedDate.getMonth() &&
+    //       new Date(event.tanggal).getFullYear() === selectedDate.getFullYear() && console.log(event.tanggal) && console.log(selectedDate)
+    //   )
+    // );
 
-  const selectedEvent = events.find(isEventOnSelectedDate);
+    const userId = localStorage.getItem("user_id");
+
+    setSelectedDate(selectedDate);
+
+    const filteredEvents = eventsList.find((event) => {
+      const eventDate = new Date(event.tanggal );
+      eventDate.setHours(eventDate.getHours() - 8);
+      return (
+        event.user_id.toString() === userId.toString() &&
+        eventDate.getDate() === selectedDate.getDate() &&
+        eventDate.getMonth() === selectedDate.getMonth() &&
+        eventDate.getFullYear() === selectedDate.getFullYear()
+      );
+    })
+      setEventsSelected(filteredEvents);
+
+  }, [selectedDate, eventsList]);
+  // const isEventOnSelectedDate = (event) => {
+  //   if (!selectedDate) return false;
+  //   const eventDate = new Date(event.tanggal);
+  //   return (
+  //     eventDate.getDate() === selectedDate.getDate() &&
+  //     eventDate.getMonth() === selectedDate.getMonth() &&
+  //     eventDate.getFullYear() === selectedDate.getFullYear()
+  //   );
+  // };
+
+  // const selectedEvent = events.find(isEventOnSelectedDate);
 
   return (
     <div className="home-container">
       <button className="logout-button" onClick={handleLogout}>
-            <div className="sign">
-              <svg viewBox="0 0 512 512">
-                <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.5 24 9.9zM256 32c17.7 0 32 14.3 32 32l0 96c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-96c0-17.7 14.3-32 32-32zM256 320c17.7 0 32 14.3 32 32l0 96c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-96c0-17.7 14.3-32 32-32zM256 192c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32z"></path>
-              </svg>
-            </div>
-            Logout
-          </button>
+        <div className="sign">
+          <svg viewBox="0 0 512 512">
+            <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.5 24 9.9zM256 32c17.7 0 32 14.3 32 32l0 96c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-96c0-17.7 14.3-32 32-32zM256 320c17.7 0 32 14.3 32 32l0 96c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-96c0-17.7 14.3-32 32-32zM256 192c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32z"></path>
+          </svg>
+        </div>
+        Logout
+      </button>
       <div className="profile">
         <span className="username">{username}</span>{" "}
         {/* Tampilkan nama pengguna */}
@@ -135,12 +176,12 @@ const Home = () => {
       </div>
       <div className="container">
         <div className="left-panel">
-          {selectedEvent ? (
+          {eventsSelected ? (
             <>
-              <h2>{selectedEvent.judul}</h2>
-              <p>{selectedEvent.deskripsi}</p>
-              <p>{new Date(selectedEvent.tanggal).toLocaleString()}</p>
-              <p>{selectedEvent.tempat}</p>
+              <h2>{eventsSelected.judul}</h2>
+              <p>{eventsSelected.deskripsi}</p>
+              <p>{(eventsSelected.tanggal)}</p>
+              <p>{eventsSelected.tempat}</p>
             </>
           ) : (
             <>
@@ -161,8 +202,8 @@ const Home = () => {
           />
           <button onClick={handleNoteSubmit}>Kirim Catatan</button>
           <div className="button-group">
-            <button className="addbutton"onClick={handleAdd}>
-            <span>BUTTON</span>
+            <button className="addbutton" onClick={handleAdd}>
+              <h3>Create Event</h3>
             </button>
             <button onClick={handleReview}>Review</button>
           </div>
@@ -192,9 +233,10 @@ const Home = () => {
                 <div
                   key={index}
                   className={`day ${
-                    day === new Date().getDate() &&
-                    currentMonth === new Date().getMonth() &&
-                    currentYear === new Date().getFullYear()
+                    selectedDate &&
+                    day === selectedDate.getDate() &&
+                    currentMonth === selectedDate.getMonth() &&
+                    currentYear === selectedDate.getFullYear()
                       ? "today"
                       : ""
                   }`}

@@ -20,11 +20,19 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await loginUser(userData);
-      localStorage.setItem("token", response.data.access_token);
-      alert("Logged in successfully");
-      navigate("/home");
+      console.log("Login response:", response.data); // Tambahkan log
+      if (response.data && response.data.user) {
+        localStorage.setItem("token", response.data.access_token);
+        localStorage.setItem("user", JSON.stringify(response.data.user)); // Simpan user data ke localStorage
+        localStorage.setItem("user_id", response.data.user.user_id); // Simpan user_id ke localStorage
+        alert("Logged in successfully");
+        navigate("/home");
+      } else {
+        console.error("Login response does not contain user data");
+        alert("Login failed: No user data received");
+      }
     } catch (error) {
-      console.error(error);
+      console.error("Login error:", error);
       alert("Invalid credentials");
     }
   };

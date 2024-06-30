@@ -30,24 +30,31 @@ export const registerUser = (userData) => {
 };
 
 export const loginUser = async (userData) => {
-  const response = await axiosInstance.post('/login', userData);
-  localStorage.setItem('token', response.data.access_token);
-  
-  if (response.data.user) {
-      localStorage.setItem('user', JSON.stringify(response.data.user));
-      localStorage.setItem('user_id', response.data.user.user_id); // Set user_id in localStorage
-  } else {
-      localStorage.removeItem('user');
-      localStorage.removeItem('user_id'); // Remove user_id from localStorage
-  }
+  try {
+    const response = await axiosInstance.post('/login', userData);
+    console.log("API login response:", response.data); // Tambahkan log
+    localStorage.setItem('token', response.data.access_token);
+    
+    if (response.data.user) {
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        localStorage.setItem('user_id', response.data.user.user_id); // Set user_id in localStorage
+    } else {
+        localStorage.removeItem('user');
+        localStorage.removeItem('user_id'); // Remove user_id from localStorage
+    }
 
-  return response;
+    return response;
+  } catch (error) {
+    console.error("API login error:", error);
+    throw error;
+  }
 };
 
 
 export const logoutUser = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('user'); // Remove user data
+  localStorage.removeItem('user_id'); // Remove user_id
   return axiosInstance.post('/logout');
 };
 
@@ -61,8 +68,9 @@ export const createEvent = async (eventData) => {
   }
 };
 
-export const getEvents = () => {
-  return axiosInstance.get('/events');
+export const getEvents = async () => {
+  const response = await axiosInstance.get('/events');
+  return response.data;
 };
 
 export const createNote = async (noteData) => {
