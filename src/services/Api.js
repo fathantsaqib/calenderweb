@@ -82,3 +82,23 @@ export const createNote = async (noteData) => {
     throw error;
   }
 };
+
+export const getNotes = async () => {
+  const response = await axiosInstance.get('/notes');
+  return response.data;
+};
+
+export const createReview = async (reviewData) => {
+  try {
+    const response = await axiosInstance.post('/reviews', reviewData);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating note:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
+
+export const getReviews = async () => {
+  const response = await axiosInstance.get('/reviews');
+  return response.data;
+};

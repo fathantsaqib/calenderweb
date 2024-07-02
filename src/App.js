@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import CreateEvent from "./components/CreateEvent";
 import Main from "./components/Main";
 import Review from "./components/Review";
+import PersonalTask from "./components/PersonalTask";
 import { isAuthenticated } from "./services/authService";
 import { EventProvider } from './context/EventContext'; // Pastikan jalur ini benar
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/review" element={<Review />} />
+          <Route path="/personaltask" element={<PersonalTask />} />
           <Route path="/createevent" element={<ProtectedRoute element={<CreateEvent />} />} />
         </Routes>
       </EventProvider>

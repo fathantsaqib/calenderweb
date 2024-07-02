@@ -14,6 +14,7 @@ const Home = () => {
   const [userId, setUserId] = useState(null);
   const [eventsList, setEventsList] = useState([]);
   const [eventsSelected, setEventsSelected] = useState(null);
+  const [notesList, setNotesList] = useState([]);
   const navigate = useNavigate();
   // const { events } = useContext(EventContext); // Gunakan useContext untuk mendapatkan events
 
@@ -29,6 +30,7 @@ const Home = () => {
       });
       if (response) {
         setNote(""); // Kosongkan inputan setelah catatan berhasil dikirim
+        setNotesList((prevNotes) => [...prevNotes, note]);
         console.log("Catatan berhasil dikirim");
       }
     } catch (error) {
@@ -65,7 +67,7 @@ const Home = () => {
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const calendarDays = [];
-    
+
     for (let i = 0; i < firstDay; i++) {
       calendarDays.push("");
     }
@@ -114,7 +116,7 @@ const Home = () => {
     }
   };
   useEffect(() => {
-    if (selectedDate == null ) return;
+    if (selectedDate == null) return;
     // eventsList.forEach((event) => {console.log(event.tanggal)});
 
     // setEventsSelected(
@@ -133,7 +135,7 @@ const Home = () => {
     setSelectedDate(selectedDate);
 
     const filteredEvents = eventsList.find((event) => {
-      const eventDate = new Date(event.tanggal );
+      const eventDate = new Date(event.tanggal);
       eventDate.setHours(eventDate.getHours() - 8);
       return (
         event.user_id.toString() === userId.toString() &&
@@ -141,9 +143,8 @@ const Home = () => {
         eventDate.getMonth() === selectedDate.getMonth() &&
         eventDate.getFullYear() === selectedDate.getFullYear()
       );
-    })
-      setEventsSelected(filteredEvents);
-
+    });
+    setEventsSelected(filteredEvents);
   }, [selectedDate, eventsList]);
   // const isEventOnSelectedDate = (event) => {
   //   if (!selectedDate) return false;
@@ -180,7 +181,7 @@ const Home = () => {
             <>
               <h2>{eventsSelected.judul}</h2>
               <p>{eventsSelected.deskripsi}</p>
-              <p>{(eventsSelected.tanggal)}</p>
+              <p>{eventsSelected.tanggal}</p>
               <p>{eventsSelected.tempat}</p>
             </>
           ) : (
@@ -203,9 +204,16 @@ const Home = () => {
           <button onClick={handleNoteSubmit}>Kirim Catatan</button>
           <div className="button-group">
             <button className="addbutton" onClick={handleAdd}>
-              <h3>Create Event</h3>
+              <span>add event</span>
             </button>
-            <button onClick={handleReview}>Review</button>
+            <button className="reviewbutton" onClick={handleReview}>
+              <span>review</span>
+            </button>
+          </div>
+          <div className="notes-list">
+            {notesList.map((note, index) => (
+              <p key={index}>{note}</p>
+            ))}
           </div>
         </div>
         <div className="right-panel">
@@ -246,12 +254,6 @@ const Home = () => {
                 </div>
               ))}
             </div>
-          </div>
-          <div className="time-slots">
-            <button>1:00 PM</button>
-            <button>2:30 PM</button>
-            <button>3:15 PM</button>
-            <button>4:00 PM</button>
           </div>
         </div>
       </div>

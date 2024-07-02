@@ -24,7 +24,7 @@ function Review() {
       console.log('Response:', response.data); // Log respons dari server
       alert("Review submitted successfully");
     } catch (error) {
-      console.error('Error submitting review:', error);
+      console.error('Error submitting review:', error.response ? error.response.data : error.message);
       alert("Error submitting review");
     }
   };
