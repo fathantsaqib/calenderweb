@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -37,3 +38,122 @@
     font-weight: bold;
     color: #f9f9f9;
   }
+=======
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #f9f9f9;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 16px;
+  }
+  
+  li {
+    background: #333; /* Ubah latar belakang menjadi #333 */
+    margin: 10px 0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    margin: 0 0 10px;
+    color: #f9f9f9;
+  }
+  
+  p {
+    margin: 5px 0;
+    color: #f9f9f9;
+  }
+  
+  p span {
+    font-weight: bold;
+    color: #f9f9f9;
+  }
+  
+  .back-button {
+    background-color: #a58b6f;
+    color: #fff;
+    border: none;
+    width: 80px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    align-self: center; /* Pusatkan tombol */
+  }
+
+  .task-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Pusatkan konten secara horizontal */
+    padding: 20px;
+    background-color: #1e1e1e; /* Warna latar belakang gelap */
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    color: #fff; /* Warna teks putih */
+    max-width: 1200px; /* Batasan lebar */
+    margin: 0 auto; /* Pusatkan kontainer */
+  }
+
+  .create-task-container {
+    margin-bottom: 20px;
+  }
+
+  .create-task-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .create-task-container form div {
+    margin-bottom: 20px;
+  }
+
+  .create-task-container form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .create-task-container form input, .create-task-container form select {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #333; /* Warna border lebih gelap */
+    border-radius: 5px;
+    background-color: #2e2e2e; /* Warna latar belakang input */
+    color: #fff; /* Warna teks input */
+  }
+
+  .create-task-container form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffb300; /* Warna tombol */
+    color: #1e1e1e; /* Warna teks tombol */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .personal-tasks-container {
+    background-color: #333; /* Warna latar belakang personal tasks */
+    padding: 20px;
+    width: 100%;
+  }
+
+  .task-item {
+    display: flex;
+    flex-direction: column;
+  }
+>>>>>>> Stashed changes

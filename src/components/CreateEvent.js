@@ -55,30 +55,33 @@ const CreateEvent = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="create-event-form">
-      <div className="form-group">
-        <label>Title:</label>
-        <input type="text" name="judul" onChange={handleChange} required />
-      </div>
-      <div className="form-group">
-        <label>Description:</label>
-        <input type="text" name="deskripsi" onChange={handleChange}></input>
-      </div>
-      <div className="form-group">
-        <label>Date:</label>
-        <input
-          type="datetime-local"
-          name="tanggal"
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label>Place:</label>
-        <input type="text" name="tempat" onChange={handleChange} />
-      </div>
-      <button type="submit">Create Event</button>
-    </form>
+    <div className="create-event-container">
+      <button className="back-button" onClick={() => navigate('/home')}>Back</button>
+      <form onSubmit={handleSubmit} className="create-event-form">
+        <div className="form-group">
+          <label>Title:</label>
+          <input type="text" name="judul" onChange={handleChange} required />
+        </div>
+        <div className="form-group">
+          <label>Description:</label>
+          <input type="text" name="deskripsi" onChange={handleChange}></input>
+        </div>
+        <div className="form-group">
+          <label>Date:</label>
+          <input
+            type="datetime-local"
+            name="tanggal"
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Place:</label>
+          <input type="text" name="tempat" onChange={handleChange} />
+        </div>
+        <button type="submit">Create Event</button>
+      </form>
+    </div>
   );
 };
 

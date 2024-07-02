@@ -1,22 +1,29 @@
-import React, { useState, useEffect } from "react"; // Tambahkan useContext
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import { EventContext } from "../context/EventContext"; // Tambahkan import EventContext
-import { createNote, getEvents } from "../services/Api"; // Tambahkan import createNote
+// import { EventContext } from "../context/EventContext";
+import { createNote, getEvents, getNotes } from "../services/Api";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./home.css";
+
 
 const Home = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [days, setDays] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(null); // Tambahkan state untuk menyimpan tanggal yang dipilih
-  const [username, setUsername] = useState(""); // Tambahkan state untuk menyimpan nama pengguna
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [username, setUsername] = useState("");
   const [note, setNote] = useState("");
   const [userId, setUserId] = useState(null);
   const [eventsList, setEventsList] = useState([]);
+<<<<<<< Updated upstream
   const [eventsSelected, setEventsSelected] = useState(null);
+=======
+  const [eventsSelected, setEventsSelected] = useState([]);
+>>>>>>> Stashed changes
   const [notesList, setNotesList] = useState([]);
   const navigate = useNavigate();
-  // const { events } = useContext(EventContext); // Gunakan useContext untuk mendapatkan events
 
   const handleNoteChange = (e) => {
     setNote(e.target.value);
@@ -25,12 +32,17 @@ const Home = () => {
   const handleNoteSubmit = async () => {
     try {
       const response = await createNote({
-        user_id: userId, // Kirim user_id
-        catatan: note, // Sesuaikan nama properti menjadi catatan
+        user_id: userId, 
+        catatan: note,
       });
       if (response) {
+<<<<<<< Updated upstream
         setNote(""); // Kosongkan inputan setelah catatan berhasil dikirim
         setNotesList((prevNotes) => [...prevNotes, note]);
+=======
+        setNote("");
+        setNotesList([{ catatan: note }]);
+>>>>>>> Stashed changes
         console.log("Catatan berhasil dikirim");
       }
     } catch (error) {
@@ -45,8 +57,11 @@ const Home = () => {
   useEffect(() => {
     try {
       getEvents().then((value) => {
-        console.log(value);
         setEventsList(value);
+      });
+      getNotes().then((notes) => {
+        const userNotes = notes.filter(note => note.user_id === userId);
+        setNotesList(userNotes);
       });
       const user = JSON.parse(localStorage.getItem("user"));
       if (user && user.user_id) {
@@ -61,7 +76,7 @@ const Home = () => {
       setUsername("");
       setUserId(null);
     }
-  }, []);
+  }, [userId]);
 
   const renderCalendar = (month, year) => {
     const firstDay = new Date(year, month, 1).getDay();
@@ -101,10 +116,13 @@ const Home = () => {
     navigate("/review");
   };
 
+  const handlePersonalTask = () => {
+    navigate("/personaltask");
+  }
+
   const handleLogout = () => {
-    // Logika untuk logout
     localStorage.removeItem("token");
-    localStorage.removeItem("user"); // Hapus data pengguna dari localStorage
+    localStorage.removeItem("user"); 
     console.log("Logout berhasil");
     navigate("/");
   };
@@ -112,9 +130,9 @@ const Home = () => {
   const handleDateClick = (day) => {
     if (day) {
       setSelectedDate(new Date(currentYear, currentMonth, day));
-      // console.log(Date(currentYear, currentMonth, day))
     }
   };
+
   useEffect(() => {
     if (selectedDate == null) return;
     // eventsList.forEach((event) => {console.log(event.tanggal)});
@@ -134,7 +152,11 @@ const Home = () => {
 
     setSelectedDate(selectedDate);
 
+<<<<<<< Updated upstream
     const filteredEvents = eventsList.find((event) => {
+=======
+    const filteredEvents = eventsList.filter((event) => {
+>>>>>>> Stashed changes
       const eventDate = new Date(event.tanggal);
       eventDate.setHours(eventDate.getHours() - 8);
       return (
@@ -158,25 +180,29 @@ const Home = () => {
 
   // const selectedEvent = events.find(isEventOnSelectedDate);
 
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    adaptiveHeight: true
+  };
+
   return (
     <div className="home-container">
+      <div className="username">{username}</div>
       <button className="logout-button" onClick={handleLogout}>
         <div className="sign">
           <svg viewBox="0 0 512 512">
             <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.5 24 9.9zM256 32c17.7 0 32 14.3 32 32l0 96c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-96c0-17.7 14.3-32 32-32zM256 320c17.7 0 32 14.3 32 32l0 96c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-96c0-17.7 14.3-32 32-32zM256 192c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32z"></path>
           </svg>
         </div>
-        Logout
+        <div className="text">Logout</div>
       </button>
-      <div className="profile">
-        <span className="username">{username}</span>{" "}
-        {/* Tampilkan nama pengguna */}
-        {/* <button className="logout-button" onClick={handleLogout}>
-          Logout
-        </button> */}
-      </div>
       <div className="container">
         <div className="left-panel">
+<<<<<<< Updated upstream
           {eventsSelected ? (
             <>
               <h2>{eventsSelected.judul}</h2>
@@ -184,27 +210,44 @@ const Home = () => {
               <p>{eventsSelected.tanggal}</p>
               <p>{eventsSelected.tempat}</p>
             </>
+=======
+          {eventsSelected.length > 0 ? (
+            <Slider {...settings}>
+              {eventsSelected.map((event, index) => (
+                <div key={index} className="event-carousel">
+                  <h2>{event.judul}</h2>
+                  <p>{event.deskripsi}</p>
+                  <p>{event.tanggal}</p>
+                  <p>{event.tempat}</p>
+                </div>
+              ))}
+            </Slider>
+>>>>>>> Stashed changes
           ) : (
             <>
               <h2>No Event</h2>
               <p>Select a date to see event details</p>
             </>
           )}
-          <select>
-            <option>completed</option>
-            <option>on progress</option>
-            <option>not yet started</option>
-          </select>
           <input
             type="text"
             placeholder="Catatan"
             value={note}
             onChange={handleNoteChange}
           />
+          <div className="notes-box">
+          <h3>Catatan</h3>
+          <div className="notes-list">
+            {notesList.map((note, index) => (
+              <p key={index}>{note.catatan}</p>
+            ))}
+          </div>
+        </div>
           <button onClick={handleNoteSubmit}>Kirim Catatan</button>
           <div className="button-group">
             <button className="addbutton" onClick={handleAdd}>
               <span>add event</span>
+<<<<<<< Updated upstream
             </button>
             <button className="reviewbutton" onClick={handleReview}>
               <span>review</span>
@@ -214,20 +257,25 @@ const Home = () => {
             {notesList.map((note, index) => (
               <p key={index}>{note}</p>
             ))}
+=======
+            </button>
+            <button className="reviewbutton" onClick={handleReview}>
+              <span>review</span>
+            </button>
+>>>>>>> Stashed changes
           </div>
+          <button className="taskbutton" onClick={handlePersonalTask}>Cek Personal Tasks</button>
         </div>
         <div className="right-panel">
           <h3>Which time works best?</h3>
           <div className="calendar">
             <div className="calendar-header">
               <div className="arrow" onClick={handlePrevMonth}></div>{" "}
-              {/* Ubah tombol sebelumnya */}
               <span>{`${new Date(currentYear, currentMonth).toLocaleString(
                 "default",
                 { month: "long" }
               )} ${currentYear}`}</span>
               <div className="arrow" onClick={handleNextMonth}></div>{" "}
-              {/* Ubah tombol sebelumnya */}
             </div>
             <div className="calendar-grid">
               <div className="day-header">Sun</div>
@@ -258,6 +306,7 @@ const Home = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 

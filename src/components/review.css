@@ -6,11 +6,29 @@
     width: 300px;
     margin: 0 auto;
   }
+
+  .create-review-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .back-button {
+    background-color: #a58b6f;
+    color: #fff;
+    border: none;
+    width: 80px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    align-self: flex-start;
+  }
   
   .rating-stars {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 20px;
+    margin-bottom: 20px
   }
   
   .star {
@@ -42,4 +60,21 @@
   
   button:hover {
     background-color: #c49b2e;
+  }
+
+  .latest-review {
+    margin-top: 20px;
+    text-align: left;
+  }
+  
+  .latest-review h3 {
+    margin-bottom: 10px;
+  }
+  
+  .latest-review .rating-stars {
+    justify-content: flex-start;
+  }
+  
+  .latest-review p {
+    margin-top: 10px;
   }

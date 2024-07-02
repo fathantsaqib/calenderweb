@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import "./main.css";
 
-// ... existing code ...
 
 const Main = ({ className = "" }) => {
     const navigate = useNavigate();
@@ -40,8 +39,7 @@ const Main = ({ className = "" }) => {
       </div>
     );
   };
-  
-  // ... existing code ...
+
 
 Main.propTypes = {
   className: PropTypes.string,
