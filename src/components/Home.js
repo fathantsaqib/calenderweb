@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // import { EventContext } from "../context/EventContext";
-import { createNote, getEvents, getNotes } from "../services/Api";
+import { createNote, getEvents, getNotes, deleteEvents } from "../services/Api";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -38,6 +38,22 @@ const Home = () => {
       }
     } catch (error) {
       console.error("Gagal mengirim catatan", error);
+    }
+  };
+
+  const handleDeleteEvent = async (eventId) => {
+    if (!eventId) {
+      console.error("Event ID is undefined");
+      return;
+    }
+    console.log("Deleting event with ID:", eventId);
+    try {
+      await deleteEvents(eventId);
+      setEventsSelected(eventsSelected.filter(event => event.kegiatan_id !== eventId));
+      setEventsList(eventsList.filter(event => event.kegiatan_id !== eventId));
+      console.log("Event berhasil dihapus");
+    } catch (error) {
+      console.error("Gagal menghapus event", error);
     }
   };
 
@@ -197,6 +213,7 @@ const Home = () => {
                   <p>{event.deskripsi}</p>
                   <p>{event.tanggal}</p>
                   <p>{event.tempat}</p>
+                  <button onClick={() => handleDeleteEvent(event.kegiatan_id)}>Hapus</button>
                 </div>
               ))}
             </Slider>

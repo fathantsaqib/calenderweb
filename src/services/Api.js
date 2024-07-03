@@ -73,6 +73,16 @@ export const getEvents = async () => {
   return response.data;
 };
 
+export const deleteEvents = async (eventId) => {
+  try {
+    const response = await axiosInstance.delete(`/events/${eventId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting task:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
+
 export const createNote = async (noteData) => {
   try {
     const response = await axiosInstance.post('/notes', noteData);
@@ -102,19 +112,6 @@ export const createReview = async (reviewData) => {
   }
 };
 
-<<<<<<< Updated upstream
-export const getNotes = async () => {
-  const response = await axiosInstance.get('/notes');
-  return response.data;
-};
-
-export const createReview = async (reviewData) => {
-  try {
-    const response = await axiosInstance.post('/reviews', reviewData);
-    return response.data;
-  } catch (error) {
-    console.error('Error creating note:', error.response ? error.response.data : error.message);
-=======
 export const getReview = async () => {
   const response = await axiosInstance.get('/reviews');
   return response.data;
@@ -131,16 +128,10 @@ export const createTask = async (taskData) => {
     return response.data;
   } catch (error) {
     console.error('Error creating task:', error.response ? error.response.data : error.message);
->>>>>>> Stashed changes
     throw error;
   }
 };
 
-<<<<<<< Updated upstream
-export const getReviews = async () => {
-  const response = await axiosInstance.get('/reviews');
-  return response.data;
-=======
 export const updateTask = async (taskId, taskData) => {
   try {
     const response = await axiosInstance.put(`/tasks/${taskId}`, taskData);
@@ -159,5 +150,4 @@ export const deleteTask = async (taskId) => {
     console.error('Error deleting task:', error.response ? error.response.data : error.message);
     throw error;
   }
->>>>>>> Stashed changes
 };
