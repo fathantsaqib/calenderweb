@@ -309,23 +309,6 @@
 .reviewbutton:hover span {
   color: #183153;
   animation: scaleUp 0.3s ease-in-out;
-<<<<<<< Updated upstream
-}
-
-@keyframes scaleUp {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(0.95);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-=======
->>>>>>> Stashed changes
 }
 
 .addbutton {

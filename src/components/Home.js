@@ -17,11 +17,7 @@ const Home = () => {
   const [note, setNote] = useState("");
   const [userId, setUserId] = useState(null);
   const [eventsList, setEventsList] = useState([]);
-<<<<<<< Updated upstream
-  const [eventsSelected, setEventsSelected] = useState(null);
-=======
   const [eventsSelected, setEventsSelected] = useState([]);
->>>>>>> Stashed changes
   const [notesList, setNotesList] = useState([]);
   const navigate = useNavigate();
 
@@ -36,13 +32,8 @@ const Home = () => {
         catatan: note,
       });
       if (response) {
-<<<<<<< Updated upstream
-        setNote(""); // Kosongkan inputan setelah catatan berhasil dikirim
-        setNotesList((prevNotes) => [...prevNotes, note]);
-=======
         setNote("");
         setNotesList([{ catatan: note }]);
->>>>>>> Stashed changes
         console.log("Catatan berhasil dikirim");
       }
     } catch (error) {
@@ -152,11 +143,7 @@ const Home = () => {
 
     setSelectedDate(selectedDate);
 
-<<<<<<< Updated upstream
-    const filteredEvents = eventsList.find((event) => {
-=======
     const filteredEvents = eventsList.filter((event) => {
->>>>>>> Stashed changes
       const eventDate = new Date(event.tanggal);
       eventDate.setHours(eventDate.getHours() - 8);
       return (
@@ -202,15 +189,6 @@ const Home = () => {
       </button>
       <div className="container">
         <div className="left-panel">
-<<<<<<< Updated upstream
-          {eventsSelected ? (
-            <>
-              <h2>{eventsSelected.judul}</h2>
-              <p>{eventsSelected.deskripsi}</p>
-              <p>{eventsSelected.tanggal}</p>
-              <p>{eventsSelected.tempat}</p>
-            </>
-=======
           {eventsSelected.length > 0 ? (
             <Slider {...settings}>
               {eventsSelected.map((event, index) => (
@@ -222,7 +200,6 @@ const Home = () => {
                 </div>
               ))}
             </Slider>
->>>>>>> Stashed changes
           ) : (
             <>
               <h2>No Event</h2>
@@ -247,22 +224,10 @@ const Home = () => {
           <div className="button-group">
             <button className="addbutton" onClick={handleAdd}>
               <span>add event</span>
-<<<<<<< Updated upstream
             </button>
             <button className="reviewbutton" onClick={handleReview}>
               <span>review</span>
             </button>
-          </div>
-          <div className="notes-list">
-            {notesList.map((note, index) => (
-              <p key={index}>{note}</p>
-            ))}
-=======
-            </button>
-            <button className="reviewbutton" onClick={handleReview}>
-              <span>review</span>
-            </button>
->>>>>>> Stashed changes
           </div>
           <button className="taskbutton" onClick={handlePersonalTask}>Cek Personal Tasks</button>
         </div>
