@@ -98,7 +98,6 @@ const PersonalTaskList = () => {
 
   const formatDueDate = (dueDate) => {
     const date = new Date(dueDate);
-    date.setHours(date.getHours() - 8); // Kurangi 8 jam
     return date.toLocaleString();
   };
 

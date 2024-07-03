@@ -252,12 +252,16 @@ const Home = () => {
           <h3>Which time works best?</h3>
           <div className="calendar">
             <div className="calendar-header">
-              <div className="arrow" onClick={handlePrevMonth}></div>{" "}
+            <div className="arrow" onClick={handlePrevMonth}>
+                &#9664; {/* Panah kiri */}
+              </div>
               <span>{`${new Date(currentYear, currentMonth).toLocaleString(
                 "default",
                 { month: "long" }
               )} ${currentYear}`}</span>
-              <div className="arrow" onClick={handleNextMonth}></div>{" "}
+              <div className="arrow" onClick={handleNextMonth}>
+                &#9654; {/* Panah kanan */}
+              </div>
             </div>
             <div className="calendar-grid">
               <div className="day-header">Sun</div>
